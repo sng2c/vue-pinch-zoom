@@ -1,6 +1,6 @@
 <template>
     <div>
-        <pinch-zoom>
+        <pinch-zoom disable-zoom-control="disable">
             <img src="https://images.unsplash.com/photo-1544606402-e522c304b027?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1564&q=80">
         </pinch-zoom>
     </div>
