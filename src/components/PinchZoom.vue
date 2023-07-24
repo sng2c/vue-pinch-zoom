@@ -1,5 +1,5 @@
 <template>
-    <div class="pinch-zoom-wrapper" v-bind:style="styleObject" v-bind:class="{'pz-zoom-zoomed-in': isZoomedIn}">
+    <div class="pinch-zoom-wrapper" v-bind:style="styleObject" v-bind:class="{'pz-zoomed-in': isZoomedIn}">
         <div class="pinch-zoom-content" v-bind:class="{'pz-dragging': isDragging()}" ref="wrapper">
             <slot></slot>
         </div>
