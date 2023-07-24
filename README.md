@@ -1,6 +1,6 @@
 # Pinch zoom for Vue
 
-<img src="https://badgen.net/bundlephobia/min/vue-pinch-zoom" />
+[//]: # (<img src="https://badgen.net/bundlephobia/min/vue-pinch-zoom" />)
 
 Vue library for images scaling and dragging with touch screen gestures. 
 
@@ -12,7 +12,7 @@ Install the npm package.
 
 Import module:
 
-	import PinchZoom from 'vue-pinch-zoom';
+	import PinchZoom from '@sng2c/vue-pinch-zoom';
 
 	Vue.component('pinch-zoom', PinchZoom);
 
@@ -51,3 +51,4 @@ Put an image inside the &lt;pinch-zoom&gt; container, its content will be scaled
 |-------------------------|---------------------------------------------|
 | toggleZoom()            | Image zooming in and out, depending on its current state. |
 | destroy()               | Unsubscribe from mouse events and touches, as well as remove added styles from the DOM tree. |
+

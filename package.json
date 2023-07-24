@@ -1,5 +1,5 @@
 {
-  "name": "vue-pinch-zoom-sng2c",
+  "name": "@sng2c/vue-pinch-zoom",
   "version": "1.0.3",
   "private": false,
   "scripts": {

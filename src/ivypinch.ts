@@ -40,7 +40,26 @@ export class IvyPinch {
     elementTarget: any;
     parentElement: any;
     i: number = 0;
-    public scale: number = 1;
+    // 비공개 속성 '종(Species)'
+    private _scale: number = 1;
+
+    // getter 함수
+    public get scale(): number {
+        return this._scale;
+    }
+
+    // setter 함수
+    public set scale(value:number) {
+        this._scale = value;
+        this.emitEvent(
+            {
+                name: 'pinch-zoom',
+                detail: {
+                    scale: this.scale
+                }
+            }
+        );
+    }
     initialScale: number = 1;
     elementPosition: any;
     eventType: any;
@@ -246,6 +265,7 @@ export class IvyPinch {
             }
 
             this.transformElement(0);
+
         }
     }
 
@@ -282,13 +302,6 @@ export class IvyPinch {
         this.setZoom({
             scale: newScale,
             center: [xCenter, yCenter]
-        });
-
-        this.emitEvent({
-            name: 'wheel',
-            detail: {
-                scale: this.scale
-            }
         });
     }
 
@@ -628,6 +641,7 @@ export class IvyPinch {
             this.centeringImage();
             this.updateInitialValues();
             this.transformElement(this.properties.transitionDuration);
+
         } else {
             this.resetScale();
         }

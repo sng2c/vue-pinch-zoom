@@ -1,9 +1,8 @@
 <template>
-    <div class="pinch-zoom-wrapper" v-bind:style="styleObject" v-bind:class="{'pz-zoomed-in': isZoomedIn}">
+    <div class="pinch-zoom-wrapper" v-bind:style="styleObject" v-bind:class="{'pz-zoomed-in': isZoomedIn}" v-bind:zoomScale="zoomScale">
         <div class="pinch-zoom-content" v-bind:class="{'pz-dragging': isDragging()}" ref="wrapper">
             <slot></slot>
         </div>
-
         <div class="pz-zoom-button pz-zoom-control-position-bottom" v-if="isControl()" v-bind:class="{'pz-zoom-button-out': isZoomedIn}" v-on:click="toggleZoom()"></div>
     </div>
 </template>
@@ -11,7 +10,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { IvyPinch } from '../ivypinch';
-import { Properties } from '../interfaces'; 
+import { Properties } from '../interfaces';
 import { defaultProperties } from '../properties';
 
 @Component
@@ -40,6 +39,7 @@ export default class PinchZoom extends Vue {
     ivyPinch: any;
     styleObject:any;
     isZoomedIn: boolean = false;
+    zoomScale: number = 0;
 
     get isTouchScreen() {
         var prefixes = ' -webkit- -moz- -o- -ms- '.split(' ');
@@ -111,6 +111,7 @@ export default class PinchZoom extends Vue {
         this.ivyPinch = new IvyPinch(this._properties);
 
         this.pollLimitZoom();
+        this.zoomScale = this.ivyPinch.scale
     }
 
     getProperties(changes: any){
@@ -134,13 +135,15 @@ export default class PinchZoom extends Vue {
     }
 
     myEventHandler(event:any) {
-        if (event.name === "wheel") {
-            this.isZoomedIn = event.detail.scale > 1;
-        }
+        this.$emit('pinch-zoom', event.detail);
+        this.zoomScale = event.detail.scale;
+        this.isZoomedIn = event.detail.scale > 1;
     }
 
     toggleZoom() {
         this.ivyPinch.toggleZoom();
+        this.$emit('pinch-zoom', {scale:this.ivyPinch.zoomScale.detail});
+        this.zoomScale = this.getScale();
         this.isZoomedIn = this.getScale() > 1;
     }
 
@@ -166,11 +169,11 @@ export default class PinchZoom extends Vue {
 .pinch-zoom-content
     height: inherit
 
-.pz-dragging 
+.pz-dragging
     cursor: all-scroll
 
 /* Zoom button */
-.pz-zoom-button 
+.pz-zoom-button
     position:  absolute
     z-index: 1000
     color: #fff
@@ -187,49 +190,49 @@ export default class PinchZoom extends Vue {
     transition: opacity .1s
     user-select: none
 
-.pz-zoom-button-out 
+.pz-zoom-button-out
     background-position: -1000px, center
 
-.pz-zoom-button:hover 
+.pz-zoom-button:hover
     opacity: 0.7
 
-.pz-zoom-button.pz-zoom-control-position-right 
+.pz-zoom-button.pz-zoom-control-position-right
     right: 16px
     top: 50%
     margin-top: -28px
 
-.pz-zoom-button.pz-zoom-control-position-right-bottom 
+.pz-zoom-button.pz-zoom-control-position-right-bottom
     right: 16px
     bottom: 32px
 
-.pz-zoom-button.pz-zoom-control-position-bottom 
+.pz-zoom-button.pz-zoom-control-position-bottom
     bottom: 16px
     left: 50%
     margin-left: -28px
 
 /* Zoom control */
-.pz-zoom-control 
+.pz-zoom-control
     position: absolute
     background-color: rgba(0, 0, 0, .8)
     border-radius: 4px
     overflow: hidden
 
-.pz-zoom-control.pz-zoom-control-position-right 
+.pz-zoom-control.pz-zoom-control-position-right
     right: 16px
     top: 50%
     margin-top: -48px
 
-.pz-zoom-control.pz-zoom-control-position-right-bottom 
+.pz-zoom-control.pz-zoom-control-position-right-bottom
     right: 16px
     bottom: 32px
 
-.pz-zoom-control.pz-zoom-control-position-bottom 
+.pz-zoom-control.pz-zoom-control-position-bottom
     bottom: 16px
     left: 50%
     margin-left: -48px
 
 .pz-zoom-in,
-.pz-zoom-out 
+.pz-zoom-out
     width: 48px
     height: 48px
     background-position: center
@@ -238,18 +241,18 @@ export default class PinchZoom extends Vue {
     cursor: pointer
 
 .pz-zoom-in:hover,
-.pz-zoom-out:hover 
+.pz-zoom-out:hover
     background-color: rgba(255, 255, 255, 0.2)
 
 .pz-zoom-control-position-bottom .pz-zoom-in,
-.pz-zoom-control-position-bottom .pz-zoom-out 
+.pz-zoom-control-position-bottom .pz-zoom-out
     float: right
 
-.pz-disabled 
+.pz-disabled
     opacity: 0.5
     cursor: default
 
-.pz-disabled:hover 
+.pz-disabled:hover
     background-color: rgba(255, 255, 255, 0)
 
 </style>
