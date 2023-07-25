@@ -1,12 +1,16 @@
 {
   "name": "@sng2c/vue-pinch-zoom",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build-lib": "vue-cli-service build --target lib --name PinchZoom src/index.ts && mkdir -p types && cp src/index.d.ts src/interfaces.d.ts types",
     "lint": "vue-cli-service lint"
   },
+  "main": "dist/PinchZoom.umd.js",
+  "unpkg": "dist/PinchZoom.umd.min.js",
+  "typings": "types/index.d.ts",
   "dependencies": {
     "core-js": "^3.4.4",
     "vue": "^2.6.10",
