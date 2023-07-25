@@ -50,15 +50,17 @@ export class IvyPinch {
 
     // setter 함수
     public set scale(value:number) {
-        this._scale = value;
-        this.emitEvent(
-            {
-                name: 'pinch-zoom',
-                detail: {
-                    scale: this.scale
+        if (this._scale != value){
+            this._scale = value;
+            this.emitEvent(
+                {
+                    name: 'pinch-zoom',
+                    detail: {
+                        scale: this.scale
+                    }
                 }
-            }
-        );
+            );
+        }
     }
     initialScale: number = 1;
     elementPosition: any;
