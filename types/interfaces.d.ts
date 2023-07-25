@@ -2,21 +2,10 @@ export interface Properties {
     "transition-duration"?: number;
     "double-tap"?: boolean;
     "double-tap-scale"?: number;
+    "zoom-button"?: boolean;
+    "zoom-button-scale"?: number;
     "auto-zoom-out"?: boolean;
-    "limit-zoom"?: number | "original image size";
+    "limit-zoom"?: number;
     "disabled"?: number;
     "element"?: any;
-    "disablePan"?: boolean;
-    "overflow"?: "hidden" | "visible";
-    "disableZoomControl"?: "disable" | "never" | "auto";
-    "zoomControlScale"?: number;
-    "backgroundColor"?: string;
-    "limitPan"?: boolean;
-    "minScale"?: number;
-    "eventHandler"?: any;
-    "listeners"?: "auto" | "mouse and touch";
-    "wheel"?: boolean;
-    "autoHeight"?: boolean;
-    "wheelZoomFactor"?: number;
-    "draggableImage"?: boolean;
 }
