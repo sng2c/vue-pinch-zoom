@@ -142,7 +142,7 @@ export default class PinchZoom extends Vue {
 
     toggleZoom() {
         this.ivyPinch.toggleZoom();
-        this.$emit('pinch-zoom', {scale:this.ivyPinch.zoomScale.detail});
+        this.$emit('pinch-zoom', {scale:this.getScale()});
         this.zoomScale = this.getScale();
         this.isZoomedIn = this.getScale() > 1;
     }
